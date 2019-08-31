@@ -16,6 +16,10 @@ const typeDefs = gql`
     me: User
   }
 
+  type Mutation {
+    makeUser(id: Int!, name: String!): User!
+  }
+
   type User {
     id: ID!
     name: String!
@@ -44,6 +48,16 @@ const resolvers = {
       return car[0];
     },
     me: () => me,
+  },
+  Mutation: {
+    makeUser: (parent, { id, name }) => {
+      const user = {
+        id,
+        name,
+      };
+      users.push(user);
+      return user;
+    },
   },
   Car: {
     owner: parent => users[parent.ownedBy - 1],
