@@ -2,10 +2,12 @@ const express = require('express');
 const app = express();
 const { ApolloServer, gql } = require('apollo-server-express');
 const users = require('./data').users;
-const me = users[0]
+const me = users[0];
+
 const typeDefs = gql`
   type Query {
     users: [User]
+    user(id: Int!): User
     me: User
   }
 
@@ -19,6 +21,10 @@ const resolvers = {
 
   Query: {
     users: () => users,
+    user: (parent, {id}) => {
+      const user = users.filter(user => user.id === id);
+      return user[0];
+    },
     me: () => me
   },
 };
