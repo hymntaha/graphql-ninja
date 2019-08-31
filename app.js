@@ -26,6 +26,7 @@ const typeDefs = gql`
       make: String!
       model: String!
       color: String!
+      ownder: User!
   }
 `;
 
@@ -42,10 +43,11 @@ const resolvers = {
       const car = cars.filter(car => car.id === id);
       return car[0];
     },
-
-
-    me: () => me
+    me: () => me,
   },
+  Car: {
+    owner: parent => users[parent.ownedBy - 1]
+  }
 };
 
 const server = new ApolloServer({

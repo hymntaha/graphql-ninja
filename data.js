@@ -19,18 +19,21 @@ let cars = [
     make: 'Ford',
     model: 'Focus',
     color: 'red',
+    ownedBy:1
   },
   {
     id:2,
     make: 'Mercedes',
     model: 'C300',
-    color: 'white'
+    color: 'white',
+    ownedBy:1
   },
   {
     id:1,
     make: 'Lincoln',
     model: 'Navigator',
-    color: 'blue'
+    color: 'blue',
+    ownedBy:2
   }
 ];
 
