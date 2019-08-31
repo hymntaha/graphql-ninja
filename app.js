@@ -9,45 +9,50 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(id: Int!): User
-      
+
     cars: [Car]
     car(id: Int!): Car
-      
+
     me: User
   }
 
   type User {
     id: ID!
     name: String!
+    car: [Car]
   }
-  
+
   type Car {
-      id: ID!,
-      make: String!
-      model: String!
-      color: String!
-      ownder: User!
+    id: ID!
+    make: String!
+    model: String!
+    color: String!
+    ownder: User!
   }
 `;
 
 const resolvers = {
-
   Query: {
     users: () => users,
-    user: (parent, {id}) => {
+    user: (parent, { id }) => {
       const user = users.filter(user => user.id === id);
       return user[0];
     },
     cars: () => cars,
-    car: (parent, {id}) => {
+    car: (parent, { id }) => {
       const car = cars.filter(car => car.id === id);
       return car[0];
     },
     me: () => me,
   },
   Car: {
-    owner: parent => users[parent.ownedBy - 1]
-  }
+    owner: parent => users[parent.ownedBy - 1],
+  },
+  User: {
+    car: parent => {
+      return parent.cars.map(carId => cars[carId - 1]);
+    },
+  },
 };
 
 const server = new ApolloServer({
