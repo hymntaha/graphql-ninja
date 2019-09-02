@@ -38,69 +38,7 @@ const typeDefs = gql`
   }
 `;
 
-const resolvers = {
-  Query: {
-    users: () => users,
-    user: (parent, { id }) => {
-      const user = users.filter(user => user.id === id);
-      return user[0];
-    },
-    cars: () => cars,
-    car: (parent, { id }) => {
-      const car = cars.filter(car => car.id === id);
-      return car[0];
-    },
-    me: () => me,
-  },
-  Mutation: {
-    makeUser: (parent, { id, name }) => {
-      const user = {
-        id,
-        name,
-      };
-      users.push(user);
-      return user;
-    },
-    removeUser:(parent, {id}) =>{
-      let found = false;
-      users = users.filter(user=>{
-        if (user.id === id) {
-          found = true;
-        } else {
-          return user;
-        }
-      });
-    },
-    createCar: (parent, { id, make, model, color }) => {
-      const car = {
-        id,
-        make,
-        model,
-        color
-      };
-      cars.push(car);
-      return car;
-    },
-    removeCar:(parent, {id}) =>{
-      let found = false;
-      cars = cars.filter(car=>{
-        if (car.id === id) {
-          found = true;
-        } else {
-          return car;
-        }
-      });
-    }
-  },
-  Car: {
-    owner: parent => users[parent.ownedBy - 1],
-  },
-  User: {
-    car: parent => {
-      return parent.cars.map(carId => cars[carId - 1]);
-    },
-  },
-};
+
 
 const server = new ApolloServer({
   typeDefs,
