@@ -9,6 +9,8 @@ const createData = () => {
       model: 'C300',
       color: 'white'
     }]
+  },{
+    include:[models.Car]
   })
 };
 
