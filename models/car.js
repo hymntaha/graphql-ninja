@@ -3,13 +3,17 @@ const car = (sequelize, DataTypes) => {
     make: {
       type: DataTypes.STRING,
     },
-    model:{
-      types: DataTypes.STRING
+    model: {
+      types: DataTypes.STRING,
     },
-    color:{
-      type: DataTypes.STRING
-    }
+    color: {
+      type: DataTypes.STRING,
+    },
   });
+
+  Car.associate = models => {
+    Car.belongsTo(models.User);
+  };
 
   return Car;
 };
