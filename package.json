@@ -13,6 +13,8 @@
     "apollo-server-express": "^2.9.2",
     "express": "^4.17.1",
     "graphql": "^14.5.4",
-    "nodemon": "^1.19.1"
+    "mysql2": "^1.7.0",
+    "nodemon": "^1.19.1",
+    "sequelize": "^5.18.0"
   }
 }
