@@ -4,7 +4,7 @@ const car = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     model: {
-      types: DataTypes.STRING,
+      type: DataTypes.STRING,
     },
     color: {
       type: DataTypes.STRING,
