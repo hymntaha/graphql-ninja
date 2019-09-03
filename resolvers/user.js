@@ -1,24 +1,24 @@
 const resolvers = {
   Query: {
-    users: () => users,
+    users: (parent, args, {models}) => models.users,
     user: (parent, { id }) => {
-      const user = users.filter(user => user.id === id);
+      const user = models.users.filter(user => user.id === id);
       return user[0];
     },
-    me: () => me,
+    me: (parent, args, {me}) => me,
   },
   Mutation: {
-    makeUser: (parent, { id, name }) => {
+    makeUser: (parent, { id, name }, {models}) => {
       const user = {
         id,
         name,
       };
-      users.push(user);
+      models.users.push(user);
       return user;
     },
-    removeUser:(parent, {id}) =>{
+    removeUser:(parent, {id}, {models}) =>{
       let found = false;
-      users = users.filter(user=>{
+      models.users = models.users.filter(user=>{
         if (user.id === id) {
           found = true;
         } else {
@@ -28,8 +28,8 @@ const resolvers = {
     },
   },
   User: {
-    car: parent => {
-      return parent.cars.map(carId => cars[carId - 1]);
+    car: (parent,args, {models}) => {
+      return parent.cars.map(carId => models.cars[carId - 1]);
     },
   },
 };
