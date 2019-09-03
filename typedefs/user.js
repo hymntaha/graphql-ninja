@@ -10,7 +10,7 @@ module.exports = gql`
     }
 
     type Mutation {
-        makeUser(id: Int!, name: String!): User!
+        makeUser(name: String!): User!
         removeUser(id: Int!): Boolean
     }
 
