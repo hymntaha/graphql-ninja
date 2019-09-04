@@ -30,32 +30,42 @@ class AddUser extends Component {
 
   render() {
     return (
-      <Mutation mutation={addUser} refetchQueries={[{
-        query: query
-      }]} awaitRefetchQueries={true}>
-        <form
-          onSubmit={evt => {
-            evt.preventDefault();
-            //   makeUser({
-            //     variables: {
-            //       name: this.state.name;
-            // }
-            // })
-            this.resetFields;
-          }}
-        >
-          <label>
-            <span>Name</span>
-            <input
-              type="text"
-              value={this.state.name}
-              onChange={this.nameChanged}
-            />
-          </label>
-          <div>
-            <button>Add User</button>
-          </div>
-        </form>
+      <Mutation
+        mutation={addUser}
+        refetchQueries={[
+          {
+            query: query,
+          },
+        ]}
+        awaitRefetchQueries={true}
+      >
+        {(makeUser, { loading, error }) => (
+          <form
+            onSubmit={evt => {
+              evt.preventDefault();
+              makeUser({
+                variables: {
+                  name: this.state.name,
+                },
+              });
+              this.resetFields;
+            }}
+          >
+            <label>
+              <span>Name</span>
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={this.nameChanged}
+              />
+            </label>
+            <div>
+              <button>Add User</button>
+            </div>
+            {loading && <p>Adding User...</p>}
+            {error && <p>Error!</p>}
+          </form>
+        )}
       </Mutation>
     );
   }
