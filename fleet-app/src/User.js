@@ -7,7 +7,8 @@ class User extends Component {
     return (
       <div>
         <Query query={query}>
-          {({ data }) => {
+          {({ data, loading }) => {
+            if( loading ) return <p>Loading...</p>;
             return (
               <div>
                 <ul>
